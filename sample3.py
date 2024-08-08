@@ -23,11 +23,15 @@ def img_to_base64(img):
 # Function to simulate firmware update process
 def perform_firmware_update(vcu_serial_number, firmware_version):
     st.write(f"Starting firmware update for VCU {vcu_serial_number} to version {firmware_version}...")
-    # Simulate progress for 72 seconds
+    # Simulate progress for 15 seconds
     progress_bar = st.progress(0)
-    for i in range(100):
-        time.sleep(0.1 / 100)  # 72 seconds total (0.72 seconds per increment)
-        progress_bar.progress(i + 1)
+    start_time = time.time()
+    while time.time() - start_time < 15:
+        elapsed = time.time() - start_time
+        progress = int((elapsed / 15) * 100)
+        progress_bar.progress(progress)
+        time.sleep(0.1)  # Small sleep to prevent high CPU usage
+    progress_bar.progress(100)
     st.write(f"Firmware update for VCU {vcu_serial_number} to version {firmware_version} is complete.")
     # Log update status
     st.session_state.logs.append(f"Update for VCU {vcu_serial_number} to version {firmware_version} completed.")
@@ -105,7 +109,7 @@ if st.session_state.authenticated:
     st.write("Enter the details below to perform a firmware update.")
 
     # Input fields
-    vcu_serial_number = st.text_input("Vehicle Control Unit (VCU) Serialc No")
+    vcu_serial_number = st.text_input("Vehicle Control Unit (VCU) Serial No")
     firmware_version = st.selectbox("Firmware Version", options=st.session_state.firmware_versions)
     submit_button = st.button("Update Firmware")
 
@@ -150,4 +154,3 @@ hide_st_style = """
     </style>
 """
 st.markdown(hide_st_style, unsafe_allow_html=True)
-
