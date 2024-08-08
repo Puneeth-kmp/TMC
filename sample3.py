@@ -105,7 +105,7 @@ if st.session_state.authenticated:
     st.write("Enter the details below to perform a firmware update.")
 
     # Input fields
-    vcu_serial_number = st.text_input("Vehicle Control Unit (VCU) Serial Number")
+    vcu_serial_number = st.text_input("Vehicle Control Unit (VCU) Serialc No")
     firmware_version = st.selectbox("Firmware Version", options=st.session_state.firmware_versions)
     submit_button = st.button("Update Firmware")
 
