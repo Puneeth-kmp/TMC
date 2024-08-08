@@ -26,7 +26,7 @@ def perform_firmware_update(vcu_serial_number, firmware_version):
     # Simulate progress for 72 seconds
     progress_bar = st.progress(0)
     for i in range(100):
-        time.sleep(0.72 / 100)  # 72 seconds total (0.72 seconds per increment)
+        time.sleep(0.1 / 100)  # 72 seconds total (0.72 seconds per increment)
         progress_bar.progress(i + 1)
     st.write(f"Firmware update for VCU {vcu_serial_number} to version {firmware_version} is complete.")
     # Log update status
