@@ -4,11 +4,13 @@ import pandas as pd
 import base64
 import io
 import time
+import requests
 
-# Function to load the icon image
+# Function to load the icon image from GitHub URL
 def load_icon():
-    img_path = "D:\\downloads\\PCANBasicExampleIcon.ico"
-    img = Image.open(img_path)
+    icon_url = "https://raw.githubusercontent.com/Puneeth-kmp/TMC/main/.devcontainer/PCANBasicExampleIcon.ico"
+    response = requests.get(icon_url)
+    img = Image.open(io.BytesIO(response.content))
     return img
 
 # Function to convert image to base64 for embedding in HTML
@@ -24,7 +26,7 @@ def perform_firmware_update(vcu_serial_number, firmware_version):
     # Simulate progress for 72 seconds
     progress_bar = st.progress(0)
     for i in range(100):
-        time.sleep(0.1)  # 72 seconds total (0.72 seconds per increment)
+        time.sleep(0.72 / 100)  # 72 seconds total (0.72 seconds per increment)
         progress_bar.progress(i + 1)
     st.write(f"Firmware update for VCU {vcu_serial_number} to version {firmware_version} is complete.")
     # Log update status
@@ -148,3 +150,4 @@ hide_st_style = """
     </style>
 """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
